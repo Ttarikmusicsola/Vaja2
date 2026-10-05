@@ -15,7 +15,7 @@ export default function Index() {
       <View style={styles.imageContainer}>
         <ImageViewer imgSource={PlaceholderImage} />
       </View>
-      <Text style={{ fontSize: 22, color: "white", paddingVertical: 20z}}>
+      <Text style={{ fontSize: 22, color: "white", paddingVertical: 20, paddingHorizontal: 15}}>
         Naprava za metuljčka je fitnes naprava in
         izolacijska vaja, namenjena krepitvi prsnih mišic.
       </Text>
