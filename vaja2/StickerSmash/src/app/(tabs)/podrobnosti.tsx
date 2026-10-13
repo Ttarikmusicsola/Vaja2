@@ -1,5 +1,6 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, Animated } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { useState, useEffect } from 'react';
 
 import ImageViewer from '@/components/image-viewer';
 
@@ -8,6 +9,16 @@ const ResistanceImage = require('@/assets/images/pc2.jpg');
 const MistakesImage = require('@/assets/images/pc3.jpg');
 
 export default function Podrobnosti() {
+  const [f] = useState(new Animated.Value(0));
+
+  useEffect(() => {
+    Animated.timing(f, {
+      toValue: 1,
+      duration: 1500,
+      useNativeDriver: false
+    }).start();
+  });
+
   return (
       <SafeAreaProvider>
         <SafeAreaView style={styles.safeArea} edges={['top']}>
@@ -26,17 +37,19 @@ export default function Podrobnosti() {
                 </Text>
               </View>
 
-              <ImageViewer
-                  imgSource={MuscleImage}
-                  style={styles.cardImage}
-              />
+              <View style={styles.imageContainer}>
+                <Animated.View style={{ opacity: f }}>
+                  <ImageViewer imgSource={MuscleImage} />
+                </Animated.View>
+              </View>
             </View>
 
             <View style={styles.section}>
-              <ImageViewer
-                  imgSource={ResistanceImage}
-                  style={styles.cardImage}
-              />
+              <View style={styles.imageContainer}>
+                <Animated.View style={{ opacity: f }}>
+                  <ImageViewer imgSource={ResistanceImage} />
+                </Animated.View>
+              </View>
 
               <View style={styles.textContent}>
                 <Text style={styles.heading}>
@@ -79,10 +92,11 @@ export default function Podrobnosti() {
                 </Text>
               </View>
 
-              <ImageViewer
-                  imgSource={MistakesImage}
-                  style={styles.cardImage}
-              />
+              <View style={styles.imageContainer}>
+                <Animated.View style={{ opacity: f }}>
+                  <ImageViewer imgSource={MistakesImage} />
+                </Animated.View>
+              </View>
             </View>
 
           </ScrollView>
@@ -96,14 +110,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#25292e',
   },
-
   container: {
     flexGrow: 1,
     gap: 20,
     padding: 16,
     backgroundColor: '#25292e',
   },
-
   section: {
     minHeight: 190,
     flexDirection: 'row',
@@ -113,24 +125,23 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     backgroundColor: '#343a40',
   },
-
   textContent: {
     flex: 1,
     gap: 8,
   },
-
   heading: {
     color: '#ffffff',
     fontSize: 28,
     fontWeight: '700',
   },
-
   text: {
     color: '#ffffff',
     fontSize: 15,
     lineHeight: 22,
   },
-
+  imageContainer: {
+    flex: 1,
+  },
   cardImage: {
     width: 132,
     height: 132,
